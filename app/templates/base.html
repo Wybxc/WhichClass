@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="/static/index.css" />
+    <script src="/static/index.js" crossorigin="anonymous"></script>
+    <title>{% block title %}Which Class{% endblock %}</title>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar bg-base-100 shadow-sm">
+        <div class="flex-1">
+          <a class="btn btn-ghost text-xl" href="/">Which Class</a>
+        </div>
+        <div class="flex-none">
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost">
+              主题
+              <i data-lucide="chevron-down" class="h-4"></i>
+            </div>
+            <div
+              class="dropdown-content bg-base-200 text-base-content rounded-box top-px mt-16 h-[28rem] max-h-[calc(100vh-10rem)] overflow-y-auto border border-white/5 shadow-2xl outline-1 outline-black/5"
+            >
+              <ul tabindex="0" class="menu w-56">
+                {%-
+                  for theme in [ "light", "dark", "cupcake", "bumblebee",
+                  "emerald", "corporate", "synthwave", "retro", "cyberpunk",
+                  "valentine", "halloween", "garden", "forest", "aqua", "lofi",
+                  "pastel", "fantasy", "wireframe", "black", "luxury", "dracula",
+                  "cmyk", "autumn", "business", "acid", "lemonade", "night",
+                  "coffee", "winter", "dim", "nord", "sunset", "caramellatte",
+                  "abyss", "silk" ]
+                %}
+                  <li>
+                    <button
+                      data-set-theme="{{ theme }}"
+                      class="gap-3 px-2 [&_svg]:visible"
+                      data-act-class="[&_svg]:visible"
+                    >
+                      <div
+                        data-theme="{{ theme }}"
+                        class="bg-base-100 grid shrink-0 grid-cols-2 gap-0.5 rounded-md p-1 shadow-sm"
+                      >
+                        <div class="bg-base-content size-1 rounded-full"></div>
+                        <div class="bg-primary size-1 rounded-full"></div>
+                        <div class="bg-secondary size-1 rounded-full"></div>
+                        <div class="bg-accent size-1 rounded-full"></div>
+                      </div>
+                      {{ theme }}
+                      <i
+                        data-lucide="check"
+                        class="invisible h-4 w-4 shrink-0"
+                      ></i>
+                    </button>
+                  </li>
+                {%- endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container mx-auto">{% block content %}{% endblock %}</main>
+
+    <footer class="footer sm:footer-horizontal footer-center p-4">
+      <aside>
+        <p>Copyright © {{ now().strftime("%Y") }} Which Class</p>
+        <p>
+          <a href="/about" class="link">关于本站</a>
+          <a
+            href="https://github.com/Wybxc/WhichClass"
+            target="_blank"
+            class="link"
+            >GitHub</a
+          >
+        </p>
+      </aside>
+    </footer>
+  </body>
+</html>

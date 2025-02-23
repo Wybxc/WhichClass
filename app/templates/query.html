@@ -1,0 +1,80 @@
+{%- if message %}
+  <div class="mx-3">
+    <div role="alert" class="alert">
+      <i data-lucide="info" class="stroke-info h-6 w-6 shrink-0"></i>
+      <span>{{ message }}</span>
+    </div>
+  </div>
+{%- endif %}
+<div
+  class="grid grid-cols-[repeat(auto-fit,minmax(22rem,1fr))] justify-center gap-4 p-4"
+>
+  {%- for course in courses %}
+    <div class="card card-border bg-base-200 shadow-sm">
+      <div class="card-body">
+        <h2 class="card-title">
+          {{ course.名称 }}
+          <span class="badge badge-soft badge-info shrink-0"
+            >{{ course.类别 }}</span
+          >
+        </h2>
+        <span class="badge text-sm">{{ course.课程号 }}</span>
+
+        <table
+          class="w-full table-fixed text-sm border-separate border-spacing-y-2"
+        >
+          <tbody>
+            <tr class="h-0">
+              <td class="w-6"></td>
+              <td class="w-full"></td>
+            </tr>
+            <tr>
+              <td>
+                <i data-lucide="calendar-days" class="h-4"></i>
+              </td>
+              <td>
+                {%- for timing in course.上课时间及教室 %}
+                  <p>{{ timing }}</p>
+                {%- endfor %}
+              </td>
+            </tr>
+
+            {%- if course.教师 %}
+              <tr>
+                <td>
+                  <i data-lucide="users" class="h-4"></i>
+                </td>
+                <td>{{ course.教师 }}</td>
+              </tr>
+            {%- endif %}
+
+            {%- if course.开课单位 %}
+              <tr>
+                <td>
+                  <i data-lucide="school" class="h-4"></i>
+                </td>
+                <td>
+                  {{ course.开课单位 }}
+                  {%- if course.专业 %}
+                    - {{ course.专业 }}
+                  {%- endif %}
+                </td>
+              </tr>
+            {%- endif %}
+
+            {%- if course.备注 %}
+              <tr>
+                <td>
+                  <i data-lucide="info" class="h-4"></i>
+                </td>
+                <td>{{ course.备注 }}</td>
+              </tr>
+            {%- endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {%- else %}
+    <p class="text-center text-sm">没有找到课程</p>
+  {%- endfor %}
+</div>

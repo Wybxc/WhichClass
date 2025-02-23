@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}About - Which Class{% endblock %}
+{% block content %}
+  <div class="prose mt-4 mx-auto">
+    <h1>关于</h1>
+    <p>
+      Which Class 是
+      <a href="https://github.com/wjsoj/WhatClass" target="_blank"
+        >What Class</a
+      >
+      的精神继承者，支持按照时间和地点筛选课程。
+    </p>
+
+    <h2>数据来源</h2>
+    <p>
+      课程数据来自每学期初从选课网爬取。由于选课网显示的课程在每个人看来都不一样（比如已经选过的课程就不会出现在选课网上，有的专业课只有本院的人才能看到信息），所以会有很多课程信息缺失（课程补充功能正在开发中）。
+    </p>
+
+    <h2>为什么是一个新的项目？</h2>
+    <p>
+      What Class
+      是一个很好的项目，但是它的代码质量不高，维护起来很困难。（其实主要是因为我不会用关系型数据库orz）
+    </p>
+    <p>
+      Which Class 使用了新的技术栈，尤其是 HTMX + 服务端渲染的 No-JS
+      方案，更适合饱受前端框架之苦的宝宝们。此外，项目也已在
+      <a href="https://github.com/Wybxc/WhichClass" target="_blank">GitHub</a>
+      开源，欢迎大家贡献代码。
+    </p>
+
+    <h2>项目使用的技术</h2>
+    <ul>
+      <li>
+        <a href="https://litestar.dev/" target="_blank">Litestar</a> &
+        <a href="https://jinja.palletsprojects.com/">Jinja</a>：Python ASGI Web
+        框架和模板引擎，实现服务端渲染
+      </li>
+      <li>
+        <a href="https://www.mongodb.com/" target="_blank">MongoDB</a>：NoSQL
+        数据库，存储课程信息，实现索引查询和文本搜索
+      </li>
+      <li>
+        <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a> &
+        <a href="https://daisyui.com/" target="_blank">Daisy UI</a>：CSS
+        框架和组件库，<s>支持高达35种不同主题自由切换</s>
+      </li>
+      <li>
+        <a href="https://htmx.org/">HTMX</a>：AJAX 框架，使用 HTML 标签代替
+        JavaScript 进行交互
+      </li>
+    </ul>
+  </div>
+{% endblock %}

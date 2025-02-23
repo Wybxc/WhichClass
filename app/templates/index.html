@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Which Class{% endblock %}
+{% block content %}
+  <form
+    hx-get="/query"
+    hx-include="closest form"
+    hx-target="#result"
+    hx-indicator="#spinner"
+  >
+    <div class="m-4 flex flex-col items-center gap-2">
+      <label class="select">
+        <span class="label">星期</span>
+        <select name="weekday">
+          {%- set 当前星期 = now().isoweekday() %}
+          {%-
+            for day in ["一", "二",
+            "三", "四", "五", "六", "日"]
+          %}
+            {%- if loop.index == 当前星期 %}
+              <option value="{{ loop.index }}" selected>{{ day }}</option>
+            {%- else %}
+              <option value="{{ loop.index }}">{{ day }}</option>
+            {%- endif %}
+          {%- endfor %}
+        </select>
+      </label>
+
+      <label class="select">
+        <span class="label">节次</span>
+        <select name="period">
+          {%-
+            for 节次 in [ "1 (8:00-8:50)", "2 (9:00-9:50)", "3 (10:10-11:00)",
+            "4 (11:10-12:00)", "5 (13:00-13:50)", "6 (14:00-14:50)", "7
+            (15:10-16:00)", "8 (16:10-17:00)", "9 (17:10-18:00)", "10
+            (18:40-19:30)", "11 (19:40-20:30)", "12 (20:40-21:30)" ]
+          %}
+            {%- if loop.index == 当前节次 %}
+              <option value="{{ loop.index }}" selected>{{ 节次 }}</option>
+            {%- else %}
+              <option value="{{ loop.index }}">{{ 节次 }}</option>
+            {%- endif %}
+          {%- endfor %}
+        </select>
+      </label>
+
+      <label class="input">
+        <span class="label">教室</span>
+        <input
+          type="text"
+          class="grow"
+          name="classroom"
+          placeholder="教室名称，如：理教404"
+        />
+      </label>
+
+      <button class="btn btn-primary btn-wide mt-2">查询</button>
+    </div>
+  </form>
+
+  <div>
+    <div id="spinner" class="htmx-indicator text-center mb-4">
+      <span class="loading loading-dots"></span>
+    </div>
+    <div id="result">
+      <p class="text-center text-sm">填写上方信息以查询课程</p>
+    </div>
+  </div>
+{% endblock %}

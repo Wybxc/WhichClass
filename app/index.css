@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui" {
+  themes: all;
+}
+
+.htmx-indicator {
+  @apply hidden;
+}
+
+.htmx-request .htmx-indicator {
+  @apply block;
+}
+
+.htmx-request.htmx-indicator {
+  @apply block;
+}

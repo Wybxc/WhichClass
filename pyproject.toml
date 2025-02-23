@@ -1,0 +1,21 @@
+[project]
+name = "which-class"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "litestar[standard]>=2.14.0",
+    "ltp>=4.2.14",
+    "motor>=3.7.0",
+    "pydantic>=2.10.6",
+    "pymongo>=4.11.1",
+    "python-dotenv>=1.0.1",
+]
+
+[dependency-groups]
+fetcher = ["playwright>=1.50.0", "tqdm>=4.67.1"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
