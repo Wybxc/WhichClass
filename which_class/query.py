@@ -63,7 +63,7 @@ class Engine:
                     },
                 },
                 {
-                    "$project": {
+                    "$addFields": {
                         "score": {"$meta": "textScore"},
                     }
                 },
@@ -94,7 +94,7 @@ class Engine:
                     },
                 },
                 {
-                    "$project": {
+                    "$addFields": {
                         "score": {"$meta": "textScore"},
                     }
                 },
