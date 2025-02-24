@@ -1,14 +1,18 @@
 import os
 
 import pymongo
-from dotenv import load_dotenv
 from pydantic import TypeAdapter
 from pymongo import MongoClient
 
 from which_class.model import Course
 
 if __name__ == "__main__":
-    load_dotenv()
+    try:
+        from dotenv import load_dotenv
+
+        load_dotenv()
+    except ImportError:
+        print("python-dotenv not installed. Ignoring .env file.")
 
     client = MongoClient(os.environ["MONGO_URI"])
     database = client[os.environ["MONGO_DB"]]
