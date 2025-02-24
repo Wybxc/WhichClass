@@ -5,8 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "huggingface-hub>=0.29.1",
     "litestar[standard]>=2.14.0",
-    "ltp>=4.2.14",
+    "ltp-extension>=0.1.13",
     "motor>=3.7.0",
     "pydantic>=2.10.6",
     "pymongo>=4.11.1",

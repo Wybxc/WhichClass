@@ -6,9 +6,9 @@ from playwright.sync_api import Page, Playwright, sync_playwright
 from pydantic import TypeAdapter
 
 from which_class.model import Course, CourseTime
-from which_class.pull_words import create_ltp
+from which_class.pull_words import PullWords
 
-ltp = create_ltp()
+pull_words = PullWords()
 
 
 def parse_上课时间(data: str):
@@ -64,11 +64,7 @@ def parse_选课计划(data: dict[str, str]):
     )
     if course.备注:
         course.keywords = " ".join(
-            ltp.pipeline(
-                "\n".join(course.上课时间及教室) + course.备注,
-                tasks=["cws"],
-                return_dict=False,
-            )[0]
+            pull_words("\n".join(course.上课时间及教室) + course.备注)
         )
     return course
 
@@ -89,11 +85,7 @@ def parse_课程查询(data: dict[str, str]):
     course.备注 = data.get("备注") or None
     if course.备注:
         course.keywords = " ".join(
-            ltp.pipeline(
-                "\n".join(course.上课时间及教室) + course.备注,
-                tasks=["cws"],
-                return_dict=False,
-            )[0]
+            pull_words("\n".join(course.上课时间及教室) + course.备注)
         )
     return course
 
