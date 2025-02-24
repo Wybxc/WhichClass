@@ -2,7 +2,7 @@
   "name": "which-class",
   "scripts": {
     "build-js": "esbuild app/index.js --bundle --minify --sourcemap --outfile=public/index.js",
-    "build-css": "tailwindcss -i app/index.css -o public/index.css",
+    "build-css": "tailwindcss --minify -i app/index.css -o public/index.css",
     "build": "$npm_execpath run build-js && $npm_execpath run build-css",
     "watch": "npm-watch"
   },
