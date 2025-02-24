@@ -1,0 +1,25 @@
+name: which-class
+services:
+  which-class:
+    build: .
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      - MONGO_URI=mongodb://root:root@mongo:27017/
+      - MONGO_DB=2025Spring
+      - TZ=Asia/Shanghai
+  
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+volumes:
+  mongo-data:
