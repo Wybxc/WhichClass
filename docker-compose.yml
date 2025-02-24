@@ -9,12 +9,10 @@ services:
       - MONGO_URI=mongodb://root:root@mongo:27017/
       - MONGO_DB=2025Spring
       - TZ=Asia/Shanghai
-  
+
   mongo:
     image: mongo
     restart: always
-    ports:
-      - 27017:27017
     volumes:
       - mongo-data:/data/db
     environment:
