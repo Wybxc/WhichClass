@@ -28,6 +28,8 @@
               <td class="w-6"></td>
               <td class="w-full"></td>
             </tr>
+
+            {%- if course.上课时间及教室 %}
             <tr>
               <td>
                 <i data-lucide="calendar-days" class="h-4"></i>
@@ -38,6 +40,7 @@
                 {%- endfor %}
               </td>
             </tr>
+            {%- endif %}
 
             {%- if course.教师 %}
               <tr>

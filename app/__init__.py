@@ -53,6 +53,14 @@ async def index() -> Template:
     )
 
 
+@get("/class")
+async def class_() -> Template:
+    return Template(
+        template_name="class.html",
+        context={},
+    )
+
+
 @get("/about")
 async def about() -> Template:
     return Template(template_name="about.html")
@@ -63,8 +71,25 @@ async def query(state: State, weekday: int, period: int, classroom: str) -> Temp
     engine: Engine = state.engine
     courses, messsage = await engine.query(weekday, period, classroom)
     return HTMXTemplate(
-        template_name="query.html",
+        template_name="result.html",
         context={"courses": courses, "message": messsage},
+    )
+
+
+@get("/match")
+async def match(
+    state: State,
+    classid: str = "",
+    name: str = "",
+    teacher: str = "",
+    department: str = "",
+    notes: str = "",
+) -> Template:
+    engine: Engine = state.engine
+    courses, message = await engine.match(classid, name, teacher, department, notes)
+    return HTMXTemplate(
+        template_name="result.html",
+        context={"courses": courses, "message": message},
     )
 
 
@@ -81,8 +106,10 @@ def register_template_callables(engine: JinjaTemplateEngine) -> None:
 app = Litestar(
     [
         index,
+        class_,
         about,
         query,
+        match,
         create_static_files_router(
             path="/static",
             directories=[base_dir.parent / "public"],

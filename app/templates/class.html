@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Which Class{% endblock %}
+{% block content %}
+  <form
+    hx-get="/match"
+    hx-include="closest form"
+    hx-target="#result"
+    hx-indicator="#spinner"
+  >
+    <div class="m-4 flex flex-col items-center gap-2">
+      <label class="input">
+        <i data-lucide="map-pin" class="h-4 opacity-50"></i>
+        <input type="text" class="grow" name="classid" placeholder="课程号" />
+      </label>
+
+      <label class="input">
+        <i data-lucide="book" class="h-4 opacity-50"></i>
+        <input type="text" class="grow" name="name" placeholder="课程名" />
+      </label>
+
+      <label class="input">
+        <i data-lucide="users" class="h-4 opacity-50"></i>
+        <input type="text" class="grow" name="teacher" placeholder="教师" />
+      </label>
+
+      <label class="input">
+        <i data-lucide="school" class="h-4 opacity-50"></i>
+        <input type="text" class="grow" name="department" placeholder="开课单位" />
+      </label>
+
+      <label class="input">
+        <i data-lucide="info" class="h-4 opacity-50"></i>
+        <input type="text" class="grow" name="notes" placeholder="备注" />
+      </label>
+
+      <button class="btn btn-primary btn-wide mt-2">查询</button>
+    </div>
+  </form>
+
+  <div>
+    <div id="spinner" class="htmx-indicator text-center mb-4">
+      <span class="loading loading-dots"></span>
+    </div>
+    <div id="result">
+      <p class="text-center text-sm">填写上方信息以查询课程</p>
+    </div>
+  </div>
+{% endblock %}

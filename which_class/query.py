@@ -1,6 +1,8 @@
 import re
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
+from which_class.pull_words import PullWords
+
 
 WEEKDAYS = ["", "一", "二", "三", "四", "五", "六", "日"]
 
@@ -8,6 +10,7 @@ WEEKDAYS = ["", "一", "二", "三", "四", "五", "六", "日"]
 class Engine:
     def __init__(self, database: AsyncIOMotorDatabase):
         self.database = database
+        self.pull_words = PullWords()
 
     async def query(
         self, weekday: int, period: int, classroom: str
@@ -107,5 +110,37 @@ class Engine:
         )
         if search_result := await result.to_list():
             return search_result, "没有找到该时段的课程，以下是模糊匹配结果"
+
+        return [], "没有找到相关课程"
+
+    async def match(
+        self,
+        classid: str,
+        name: str,
+        teacher: str,
+        department: str,
+        notes: str,
+    ) -> tuple[list, str | None]:
+        query = {}
+        if classid:
+            query["课程号"] = classid
+        if name:
+            query["名称"] = {"$regex": name}
+        if teacher:
+            query["教师"] = {"$regex": teacher}
+        if department:
+            query["$or"] = [
+                {"开课单位": {"$regex": department}},
+                {"专业": {"$regex": department}},
+            ]
+        if notes:
+            query["$text"] = {"$search": " ".join(self.pull_words(notes))}
+
+        if not query:
+            return [], "搜索条件为空"
+
+        result = self.database.courses.find(query)
+        if search_result := await result.to_list():
+            return search_result, None
 
         return [], "没有找到相关课程"

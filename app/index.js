@@ -8,6 +8,8 @@ import {
   Users,
   School,
   Info,
+  MapPin,
+  Book,
 } from "lucide";
 
 if (localStorage.getItem("theme") == null) {
@@ -32,6 +34,8 @@ htmx.on("htmx:load", () => {
       Users,
       School,
       Info,
+      MapPin,
+      Book,
     },
   });
 });
